@@ -11,22 +11,22 @@ public class Tile {
 	public Tile(int _identifier) {
 		identifier = _identifier;
 	}
-	
-	@Override
-	public String toString() {
-		return Integer.toString(identifier);
-	}
 
 	public int getIdentifier() {
 		return identifier;
 	}
 	
-	public void printNorth() {
-		System.out.print((identifier & 1) == 0 ? "+---" : "+   ");
+	@Override
+	public String toString() {
+		return stringNorth() + "\n" + stringWest();
 	}
 	
-	public void printWest() {
-		System.out.print((identifier & 8) == 0 ? "|   " : "    ");
+	public String stringNorth() {
+		return (identifier & 1) == 0 ? "+---" : "+   ";
+	}
+	
+	public String stringWest() {
+		return (identifier & 8) == 0 ? "|   " : "    ";
 	}
 
 }
