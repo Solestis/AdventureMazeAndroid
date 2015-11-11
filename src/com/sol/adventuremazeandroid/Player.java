@@ -2,7 +2,7 @@ package com.sol.adventuremazeandroid;
 
 public class Player {
 	
-	private Tile location;
+	//private Tile location;
 	
 	public Player() {
 		// TODO Auto-generated constructor stub

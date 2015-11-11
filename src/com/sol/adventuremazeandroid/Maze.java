@@ -2,7 +2,7 @@ package com.sol.adventuremazeandroid;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Maze {
 
@@ -30,7 +30,14 @@ public class Maze {
 			int[] intArray = mazeIntArray[aX];
 			for(int aY = 0; aY < intArray.length; aY++) {
 				int tileInt = intArray[aY];
-				tileMatrix[aX][aY] = new Tile(tileInt);
+				Tile tile = new Tile(tileInt);
+				if(aX == mazeIntArray.length) {
+					tile.setEastWall(true);
+				}
+				if(aY == mazeIntArray.length) {
+					tile.setSouthWall(true);
+				}
+				tileMatrix[aX][aY] = tile;
 			}
 		}
 	}
@@ -38,7 +45,7 @@ public class Maze {
 	public void printMazeInts() {
 		for(int i = 0; i < tileMatrix.length; i++) {
 			for(Tile[] tile : tileMatrix) {
-				System.out.print(tile[i]+ " ");
+				System.out.print(tile[i].getIdentifier()+ " ");
 			}
 			System.out.println();
 		}
@@ -68,21 +75,15 @@ public class Maze {
 		return writer.toString();
 	}
 	
-	public Tile[] getTilesArray() {
-		Tile[] firstArray = tileMatrix[0];
-		int totalLength = firstArray.length;
+	public ArrayList<Tile> getTilesArray() {
+		ArrayList<Tile> result = new ArrayList<Tile>();
 		
-		for (Tile[] array : tileMatrix) {
-			totalLength += array.length;
+		for(int i = 0; i < x; i++) {
+			for(Tile[] tileArray : tileMatrix) {
+				result.add(tileArray[i]);
+			}
 		}
 		
-		Tile[] result = Arrays.copyOf(firstArray, totalLength);
-		
-		int offset = firstArray.length;
-		for (Tile[] array : tileMatrix) {
-			System.arraycopy(array, 0, result, offset, array.length);
-			offset += array.length;
-		}
 		return result;
 	}
 }

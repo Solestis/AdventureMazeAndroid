@@ -1,11 +1,11 @@
 package com.sol.adventuremazeandroid;
 
+import com.sol.adventuremazeandroid.adapters.TileAdapter;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -19,15 +19,15 @@ public class MainActivity extends Activity {
 	
 	public void generateMaze(View view) {
 		maze = new Maze(10, 10);
-		//TextView mazeText = (TextView) findViewById(R.id.mazeText);
-		//mazeText.setText(maze.toString());
+		System.out.println(maze);
+		maze.printMazeInts();
 		showMazeGrid();
 	}
 	
 	public void showMazeGrid() {
-		ArrayAdapter<Tile> adapter = new ArrayAdapter<Tile>(this, android.R.layout.simple_list_item_1, maze.getTilesArray());
+		TileAdapter adapter = new TileAdapter(this, maze.getTilesArray());
 		GridView mazeGrid = (GridView) findViewById(R.id.mazeGrid);
-		mazeGrid.setNumColumns(maze.getY());
+		mazeGrid.setNumColumns(maze.getX());
 		mazeGrid.setAdapter(adapter);
 	}
 }
