@@ -1,4 +1,4 @@
-package com.sol.adventuremazeandroid.adapters;
+package com.sol.adventuremazeandroid.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

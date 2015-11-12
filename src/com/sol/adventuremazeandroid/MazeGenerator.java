@@ -1,6 +1,8 @@
 package com.sol.adventuremazeandroid;
 
 import java.util.Collections;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Arrays;
  
 /*
@@ -11,11 +13,7 @@ import java.util.Arrays;
 public class MazeGenerator {
 	private final int x;
 	private final int y;
-	private final int[][] maze;
- 
-	public int[][] getMaze() {
-		return maze;
-	}
+	private final int[][] maze; public int[][] getMaze() {return maze;}
 
 	public MazeGenerator(int x, int y) {
 		this.x = x;
@@ -24,27 +22,31 @@ public class MazeGenerator {
 		generateMaze(0, 0);
 	}
  
-	public void display() {
+	@Override
+	public String toString() {
+		StringWriter writer = new StringWriter();
+		PrintWriter out = new PrintWriter(writer);
 		for (int i = 0; i < y; i++) {
 			// draw the north edge
 			for (int j = 0; j < x; j++) {
-				System.out.print((maze[j][i] & 1) == 0 ? "+---" : "+   ");
+				out.print((maze[j][i] & 1) == 0 ? "+---" : "+   ");
 			}
-			System.out.println("+");
+			out.println("+");
 			// draw the west edge
 			for (int j = 0; j < x; j++) {
-				System.out.print((maze[j][i] & 8) == 0 ? "|   " : "    ");
+				out.print((maze[j][i] & 8) == 0 ? "|   " : "    ");
 			}
-			System.out.println("|");
+			out.println("|");
 		}
 		// draw the bottom line
 		for (int j = 0; j < x; j++) {
-			System.out.print("+---");
+			out.print("+---");
 		}
-		System.out.println("+");
+		out.println("+");
+		return writer.toString();
 	}
 	
-	public void printArray() {
+	public void printMazeInts() {
 		for(int i = 0; i < maze.length; i++) {
 			for(int[] array : maze) {
 				System.out.print(array[i]+ " ");

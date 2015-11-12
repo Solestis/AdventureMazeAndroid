@@ -1,4 +1,4 @@
-package com.sol.adventuremazeandroid.adapters;
+package com.sol.adventuremazeandroid.view;
 
 import java.util.List;
 import com.sol.adventuremazeandroid.Tile;

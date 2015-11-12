@@ -15,15 +15,13 @@ public final class R {
         public static final int wall=0x7f020001;
     }
     public static final class id {
-        public static final int button1=0x7f060003;
-        public static final int eastWall=0x7f060006;
-        public static final int listview_background_shape=0x7f060008;
+        public static final int button1=0x7f060001;
+        public static final int eastWall=0x7f060004;
+        public static final int listview_background_shape=0x7f060006;
         public static final int mazeGrid=0x7f060000;
-        public static final int mazeTextNorth=0x7f060001;
-        public static final int mazeTextWest=0x7f060002;
-        public static final int northWall=0x7f060004;
-        public static final int southWall=0x7f060005;
-        public static final int westWall=0x7f060007;
+        public static final int northWall=0x7f060002;
+        public static final int southWall=0x7f060003;
+        public static final int westWall=0x7f060005;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
