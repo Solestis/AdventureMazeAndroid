@@ -1,8 +1,10 @@
 package com.sol.adventuremazeandroid.view;
 
 import java.util.List;
-import com.sol.adventuremazeandroid.Tile;
+
 import com.sol.adventuremazeandroid.R;
+import com.sol.adventuremazeandroid.game.Tile;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +33,6 @@ public class TileAdapter extends ArrayAdapter<Tile> {
 		southWall.setVisibility((walls[2]) ? View.VISIBLE : View.INVISIBLE);
 		View westWall = convertView.findViewById(R.id.westWall);
 		westWall.setVisibility((walls[3]) ? View.VISIBLE : View.INVISIBLE);
-		//convertView = (SquareView)convertView;
 		
 		return convertView;	
 	}

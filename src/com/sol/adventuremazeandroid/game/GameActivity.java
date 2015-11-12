@@ -1,9 +1,7 @@
-package com.sol.adventuremazeandroid;
+package com.sol.adventuremazeandroid.game;
 
-import java.util.ArrayList;
-
+import com.sol.adventuremazeandroid.R;
 import com.sol.adventuremazeandroid.view.TileAdapter;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +9,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-public class MainActivity extends Activity implements OnItemClickListener {
+public class GameActivity extends Activity implements OnItemClickListener {
 
 	private Maze maze;
-	private ArrayList<Tile> tilesArray;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +21,13 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	
 	public void generateMaze(View view) {
 		maze = new Maze(12, 12);
-		tilesArray = maze.getTileList();
-		System.out.println(maze);
-		maze.printMazeInts();
+		//System.out.println(maze);
+		//maze.printMazeInts();
 		showMazeGrid();
 	}
 	
 	public void showMazeGrid() {
-		TileAdapter adapter = new TileAdapter(this, tilesArray);
+		TileAdapter adapter = new TileAdapter(this, maze.getTileList());
 		GridView mazeGrid = (GridView) findViewById(R.id.mazeGrid);
 		mazeGrid.setNumColumns(maze.getX());
 		mazeGrid.setOnItemClickListener(this);
@@ -44,6 +40,6 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		tilesArray.get(position).onClick();
+		maze.getTileList().get(position).onClick();
 	}
 }

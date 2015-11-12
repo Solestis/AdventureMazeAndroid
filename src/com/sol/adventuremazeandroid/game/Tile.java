@@ -1,4 +1,4 @@
-package com.sol.adventuremazeandroid;
+package com.sol.adventuremazeandroid.game;
 
 public class Tile {
 
@@ -14,8 +14,8 @@ public class Tile {
 		identifier = _identifier;
 		walls = new boolean[4];
 		walls[0] = (identifier & 1) == 0 ? true : false;
-		walls[1] = false;
-		walls[2] = false;
+		walls[1] = (identifier & 4) == 0 ? true : false;;
+		walls[2] = (identifier & 2) == 0 ? true : false;
 		walls[3] = (identifier & 8) == 0 ? true : false;
 	}
 

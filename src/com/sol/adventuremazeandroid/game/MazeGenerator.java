@@ -1,4 +1,4 @@
-package com.sol.adventuremazeandroid;
+package com.sol.adventuremazeandroid.game;
 
 import java.util.Collections;
 import java.io.PrintWriter;

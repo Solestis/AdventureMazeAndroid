@@ -1,4 +1,4 @@
-package com.sol.adventuremazeandroid;
+package com.sol.adventuremazeandroid.game;
 
 import java.util.ArrayList;
 
@@ -28,12 +28,6 @@ public class Maze {
 			for(int aY = 0; aY < y; aY++) {
 				int tileInt = intArray[aY];
 				Tile tile = new Tile(tileInt);
-				if(aX == (x-1)) {
-					tile.setEastWall(true);
-				}
-				if(aY == (y-1)) {
-					tile.setSouthWall(true);
-				}
 				tileMatrix[aX][aY] = tile;
 			}
 		}
