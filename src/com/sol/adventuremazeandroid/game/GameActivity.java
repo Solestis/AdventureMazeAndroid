@@ -12,34 +12,36 @@ import android.widget.GridView;
 public class GameActivity extends Activity implements OnItemClickListener {
 
 	private Maze maze;
+	private Player player;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_game);
 	}
 	
 	public void generateMaze(View view) {
-		maze = new Maze(12, 12);
-		//System.out.println(maze);
-		//maze.printMazeInts();
-		showMazeGrid();
+		int mazeX = 12;
+		int mazeY = 12;
+		maze = new Maze(mazeX, mazeY);
+		showMaze();
 	}
 	
-	public void showMazeGrid() {
+	public void showMaze() {
 		TileAdapter adapter = new TileAdapter(this, maze.getTileList());
-		GridView mazeGrid = (GridView) findViewById(R.id.mazeGrid);
+		GridView mazeGrid = (GridView) findViewById(R.id.tileGrid);
 		mazeGrid.setNumColumns(maze.getX());
 		mazeGrid.setOnItemClickListener(this);
 		mazeGrid.setAdapter(adapter);
-	}
-	
-	public void movePlayer() {
-		System.out.println("Moving Player");
+		
+		player = new Player("Sol");
+		player.setLocation(maze.getTileList().get(0));
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		maze.getTileList().get(position).onClick();
+		Tile clickedTile = maze.getTileList().get(position);
+		player.move(clickedTile);
+		clickedTile.onClick();
 	}
 }

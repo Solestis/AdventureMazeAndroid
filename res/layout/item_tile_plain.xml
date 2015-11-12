@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sol.adventuremazeandroid.view.TileLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="30dp"
+    android:layout_height="match_parent"
     android:layout_margin="0dp"
     android:focusable="false"
     android:focusableInTouchMode="false"
@@ -35,4 +35,12 @@
         android:layout_gravity="left"
         android:background="@drawable/wall" />
 
-</FrameLayout>
+    <com.sol.adventuremazeandroid.view.SquareView
+        android:id="@+id/player"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/player"
+        android:visibility="invisible" />
+
+</com.sol.adventuremazeandroid.view.TileLayout>

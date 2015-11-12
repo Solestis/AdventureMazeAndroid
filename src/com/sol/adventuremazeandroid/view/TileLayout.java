@@ -21,18 +21,18 @@ public class TileLayout extends FrameLayout {
 	public TileLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
-	
+    
     @Override
-    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec)
-    {
-        final int width = getDefaultSize(getSuggestedMinimumWidth(),widthMeasureSpec);
-        setMeasuredDimension(width, width);
-    }
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+       int width = MeasureSpec.getSize(widthMeasureSpec);
+       int height = width;
+       heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+       super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+   }
 
     @Override
     protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh)
     {
         super.onSizeChanged(w, w, oldw, oldh);
     }
-
 }

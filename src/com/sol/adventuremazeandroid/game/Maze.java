@@ -27,12 +27,13 @@ public class Maze {
 			int[] intArray = mazeIntArray[aX];
 			for(int aY = 0; aY < y; aY++) {
 				int tileInt = intArray[aY];
-				Tile tile = new Tile(tileInt);
+				Tile tile = new Tile(tileInt, aX, aY);
 				tileMatrix[aX][aY] = tile;
 			}
 		}
 		for(int i = 0; i < x; i++) {
 			for(Tile[] tileArray : tileMatrix) {
+				tileArray[i].setListIndex(tileList.size());
 				tileList.add(tileArray[i]);
 			}
 		}

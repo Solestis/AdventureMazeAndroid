@@ -2,29 +2,19 @@ package com.sol.adventuremazeandroid.game;
 
 public class Player {
 	
-	//private Tile location;
+	private Tile location;	public Tile getLocation() {return location;}	public void setLocation(Tile location) {this.location = location; move(this.location);}
+	private String name; 	public String getName() {return name;}
 	
-	public Player() {
-		// TODO Auto-generated constructor stub
+	public Player(String _name) {
+		name = _name;
 	}
 	
-	public void move(String direction) {
-		switch (direction) {
-		case "up":
-			System.out.println("moved up");
-			break;
-		case "down":
-			System.out.println("moved down");
-			break;
-		case "left":
-			System.out.println("moved left");
-			break;
-		case "right":
-			System.out.println("moved right");
-			break;
-		default:
-			break;
-	}
+	public void move(Tile tile) {
+		if(tile != location) {
+			location.setPlayerHere(false);
+			location = tile;
+		}
+		location.setPlayerHere(true);
 	}
 
 }

@@ -21,18 +21,31 @@ public class TileAdapter extends ArrayAdapter<Tile> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Tile tile = getItem(position);
 		if(convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_tile, parent, false);	
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_tile_plain, parent, false);	
 		}
 		convertView.setMinimumHeight(convertView.getWidth());
 		boolean[] walls = tile.getWalls();
-		View northWall = convertView.findViewById(R.id.northWall);
-		northWall.setVisibility((walls[0]) ? View.VISIBLE : View.INVISIBLE);
-		View eastWall = convertView.findViewById(R.id.eastWall);
-		eastWall.setVisibility((walls[1]) ? View.VISIBLE : View.INVISIBLE);
-		View southWall = convertView.findViewById(R.id.southWall);
-		southWall.setVisibility((walls[2]) ? View.VISIBLE : View.INVISIBLE);
-		View westWall = convertView.findViewById(R.id.westWall);
-		westWall.setVisibility((walls[3]) ? View.VISIBLE : View.INVISIBLE);
+		if (!walls[0]) {
+			View northWall = convertView.findViewById(R.id.northWall);
+			northWall.setVisibility(View.INVISIBLE);
+		}
+		if(!walls[1]) {
+			View eastWall = convertView.findViewById(R.id.eastWall);
+			eastWall.setVisibility(View.INVISIBLE);
+		}
+		if(!walls[2]) {
+			View southWall = convertView.findViewById(R.id.southWall);
+			southWall.setVisibility(View.INVISIBLE);
+		}
+		if(!walls[3]) {
+			View westWall = convertView.findViewById(R.id.westWall);
+			westWall.setVisibility(View.INVISIBLE);
+		}
+		if(tile.hasPlayer()) {
+			View player = convertView.findViewById(R.id.player);
+			player.setVisibility(View.VISIBLE);
+		}
+		tile.setView(convertView);
 		
 		return convertView;	
 	}
