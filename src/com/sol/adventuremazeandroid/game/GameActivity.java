@@ -1,5 +1,7 @@
 package com.sol.adventuremazeandroid.game;
 
+import java.util.ArrayList;
+
 import com.sol.adventuremazeandroid.R;
 import com.sol.adventuremazeandroid.view.TileAdapter;
 import android.app.Activity;
@@ -13,35 +15,51 @@ public class GameActivity extends Activity implements OnItemClickListener {
 
 	private Maze maze;
 	private Player player;
+	private TileAdapter gridContents;
+	private GridView mazeGrid;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
+		mazeGrid = (GridView) findViewById(R.id.tileGrid);
+		mazeGrid.setOnItemClickListener(this);
+		
+		startGame();
 	}
 	
-	public void generateMaze(View view) {
-		int mazeX = 12;
-		int mazeY = 12;
+	public void startGame() {
+		int mazeX = 7;
+		int mazeY = 7;
 		maze = new Maze(mazeX, mazeY);
+		
+		player = new Player("Sol");
+		player.setLocation(maze.getStartTile());
+		
 		showMaze();
 	}
 	
 	public void showMaze() {
-		TileAdapter adapter = new TileAdapter(this, maze.getTileList());
-		GridView mazeGrid = (GridView) findViewById(R.id.tileGrid);
-		mazeGrid.setNumColumns(maze.getX());
-		mazeGrid.setOnItemClickListener(this);
-		mazeGrid.setAdapter(adapter);
-		
-		player = new Player("Sol");
-		player.setLocation(maze.getTileList().get(0));
+		ArrayList<Tile> visibleTiles = maze.getVisibleList(player);
+		gridContents = new TileAdapter(this, visibleTiles);
+		mazeGrid.setNumColumns(maze.getNumVisibleColumns());
+		mazeGrid.setAdapter(gridContents);
+		player.getLocation().setActive();
+		maze.setVisibility(player.getLocation(), player.getViewRadius(), true);
+	}
+	
+	public void restartGame(View view) {
+		startGame();
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Tile clickedTile = maze.getTileList().get(position);
-		player.move(clickedTile);
-		clickedTile.onClick();
+		Tile clickedTile = gridContents.getItem(position);
+		if(clickedTile.isActive()) {
+			//System.out.println(clickedTile + " is active, moving player.");
+			player.move(clickedTile);
+			showMaze();
+			clickedTile.onClick();
+		}
 	}
 }

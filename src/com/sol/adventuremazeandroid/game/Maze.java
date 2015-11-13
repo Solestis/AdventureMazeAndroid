@@ -4,37 +4,92 @@ import java.util.ArrayList;
 
 public class Maze {
 
-	private MazeGenerator mazeGenerator;
-	
-	private ArrayList<Tile> tileList; public ArrayList<Tile> getTileList() {return tileList;}
-	private int x; public int getX() {return x;}
-	private int y; public int getY() {return y;}
+	private MazeGenerator mazeGenerator;	
+	private int width; 					public int getX() {return width;}
+	private int height; 				public int getY() {return height;}
+	private Tile startTile;				public Tile getStartTile() {return startTile;}
+	private Tile[][] tileMatrix;
+	private int numVisibleColumns = 0;	public int getNumVisibleColumns() {return numVisibleColumns;}
 
-	public Maze(int _x, int _y) {
-		x = _x;
-		y = _y;
-		
-		tileList = new ArrayList<Tile>();
+	public Maze(int _width, int _height) {
+		width = _width;
+		height = _height;
 		generateMaze();	
 	}
 	
 	private void generateMaze() {
-		Tile[][] tileMatrix = new Tile[x][y];
-		mazeGenerator = new MazeGenerator(x,y);
+		tileMatrix = new Tile[width][height];
+		mazeGenerator = new MazeGenerator(width,height);
 		int[][] mazeIntArray = mazeGenerator.getMaze();
 		
-		for(int aX = 0; aX < x; aX++) {
+		for(int aX = 0; aX < width; aX++) {
 			int[] intArray = mazeIntArray[aX];
-			for(int aY = 0; aY < y; aY++) {
+			for(int aY = 0; aY < height; aY++) {
 				int tileInt = intArray[aY];
 				Tile tile = new Tile(tileInt, aX, aY);
 				tileMatrix[aX][aY] = tile;
 			}
 		}
-		for(int i = 0; i < x; i++) {
-			for(Tile[] tileArray : tileMatrix) {
-				tileArray[i].setListIndex(tileList.size());
-				tileList.add(tileArray[i]);
+		startTile = tileMatrix[3][3];
+	}
+	
+	public ArrayList<Tile> getVisibleList(Player player) {
+		int y = player.getLocation().getY();
+		int x = player.getLocation().getX();
+		int viewRadius = player.getViewRadius();
+		
+		ArrayList<Tile> visibleList = new ArrayList<Tile>();
+		
+		int minimumY = (y-viewRadius < 0) ? 0 : y-viewRadius;
+		int maximumY = (y+viewRadius > (height-1)) ? (height-1) : y+viewRadius;
+		int minimumX = (x-viewRadius < 0) ? 0 : x-viewRadius;
+		int maximumX = (x+viewRadius > (width-1)) ? (width-1) : x+viewRadius;
+		numVisibleColumns = maximumX - minimumX + 1;
+		
+		for(int vy = minimumY; vy <= maximumY; vy++) {
+			for(int vx = minimumX; vx <= maximumX; vx++) {
+				visibleList.add(tileMatrix[vx][vy]);
+			}
+		}
+		
+		return visibleList;
+	}
+	
+	public void setVisibility(Tile tile, int visibilityRange) {
+		setVisibility(tile, visibilityRange, false);
+	}
+	
+	public void setVisibility(Tile tile, int visibilityRange, boolean resetVisibility) {
+		if(resetVisibility) {
+			for(Tile[] tiles : tileMatrix) {
+				for(Tile t : tiles) {
+					t.setInactive();
+				}
+			}
+		}
+		
+		boolean[] walls = tile.getWalls();
+		int range = visibilityRange-1;
+		
+		for(int i = 0; i < walls.length; i++) {
+			Tile nextTile = null;
+			if(!walls[i]) {
+				if(i==0) {
+					nextTile = tileMatrix[tile.getX()][tile.getY()-1];
+				}
+				if(i==1) {
+					nextTile = tileMatrix[tile.getX()+1][tile.getY()];
+				}
+				if(i==2) {
+					nextTile = tileMatrix[tile.getX()][tile.getY()+1];
+				}
+				if(i==3) {
+					nextTile = tileMatrix[tile.getX()-1][tile.getY()];
+				}
+				nextTile.setActive();
+				if(nextTile != null && range > 0) {
+					setVisibility(nextTile, range);
+				}
 			}
 		}
 	}

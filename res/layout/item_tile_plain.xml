@@ -8,6 +8,38 @@
     android:rowCount="2" >
 
     <View
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_gravity="top|left"
+        android:layout_marginLeft="-5dp"
+        android:layout_marginTop="-5dp"
+        android:background="@drawable/wall_corner" />
+
+    <View
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="-5dp"
+        android:layout_marginTop="-5dp"
+        android:background="@drawable/wall_corner" />
+
+    <View
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="-5dp"
+        android:layout_marginLeft="-5dp"
+        android:background="@drawable/wall_corner" />
+
+    <View
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="-5dp"
+        android:layout_marginRight="-5dp"
+        android:background="@drawable/wall_corner" />
+
+    <View
         android:id="@+id/northWall"
         android:layout_width="fill_parent"
         android:layout_height="5dp"
