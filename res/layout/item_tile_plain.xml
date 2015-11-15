@@ -3,76 +3,90 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="0dp"
+    android:background="@drawable/floor_1"
     android:focusable="false"
     android:focusableInTouchMode="false"
     android:rowCount="2" >
 
     <View
-        android:layout_width="9dp"
-        android:layout_height="9dp"
-        android:layout_gravity="top|left"
-        android:layout_marginLeft="-5dp"
-        android:layout_marginTop="-5dp"
-        android:background="@drawable/wall_corner" />
+        android:id="@+id/nw_wall_corner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/nw_wall_corner" />
 
     <View
-        android:layout_width="9dp"
-        android:layout_height="9dp"
-        android:layout_gravity="top|right"
-        android:layout_marginRight="-5dp"
-        android:layout_marginTop="-5dp"
-        android:background="@drawable/wall_corner" />
+        android:id="@+id/ne_wall_corner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ne_wall_corner" />
 
     <View
-        android:layout_width="9dp"
-        android:layout_height="9dp"
-        android:layout_gravity="bottom|left"
-        android:layout_marginBottom="-5dp"
-        android:layout_marginLeft="-5dp"
-        android:background="@drawable/wall_corner" />
+        android:id="@+id/se_wall_corner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/se_wall_corner" />
 
     <View
-        android:layout_width="9dp"
-        android:layout_height="9dp"
-        android:layout_gravity="bottom|right"
-        android:layout_marginBottom="-5dp"
-        android:layout_marginRight="-5dp"
-        android:background="@drawable/wall_corner" />
+        android:id="@+id/sw_wall_corner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/sw_wall_corner" />
 
     <View
-        android:id="@+id/northWall"
-        android:layout_width="fill_parent"
-        android:layout_height="5dp"
+        android:id="@+id/north_wall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="top"
-        android:background="@drawable/wall" />
+        android:background="@drawable/north_wall" />
 
     <View
-        android:id="@+id/southWall"
-        android:layout_width="fill_parent"
-        android:layout_height="5dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/wall" />
+        android:id="@+id/south_wall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/south_wall" />
 
     <View
-        android:id="@+id/eastWall"
-        android:layout_width="5dp"
-        android:layout_height="fill_parent"
-        android:layout_gravity="right"
-        android:background="@drawable/wall" />
+        android:id="@+id/east_wall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/east_wall" />
 
     <View
-        android:id="@+id/westWall"
-        android:layout_width="5dp"
-        android:layout_height="fill_parent"
-        android:layout_gravity="left"
-        android:background="@drawable/wall" />
+        android:id="@+id/west_wall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/west_wall" />
 
-    <com.sol.adventuremazeandroid.view.SquareView
+    <View
+        android:id="@+id/nw_inner_corner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/nw_inner_corner" />
+
+    <View
+        android:id="@+id/ne_inner_corner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ne_inner_corner" />
+
+    <View
+        android:id="@+id/se_inner_corner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/se_inner_corner" />
+
+    <View
+        android:id="@+id/sw_inner_corner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/sw_inner_corner" />
+
+    <View
         android:id="@+id/player"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_margin="10dp"
-        android:background="@drawable/player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="@drawable/player_up_stationary"
         android:visibility="invisible" />
 
 </com.sol.adventuremazeandroid.view.TileLayout>
