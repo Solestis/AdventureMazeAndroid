@@ -1,6 +1,9 @@
 package com.sol.adventuremazeandroid.game;
 
 import com.sol.adventuremazeandroid.R;
+import com.sol.adventuremazeandroid.view.TileLayout;
+
+import android.view.LayoutInflater;
 import android.view.View;
 
 public class Tile {
@@ -83,6 +86,13 @@ public class Tile {
 			} else {
 				playerView.setVisibility(View.INVISIBLE);
 			}
+		}
+	}
+	public void setPlayerHere() {
+		if(view != null) {
+			TileLayout tileLayout = (TileLayout)view.findViewById(R.id.tile_layout);
+			View playerView = LayoutInflater.from(view.getContext()).inflate(R.layout.player_view, tileLayout, false);
+			tileLayout.addView(playerView);
 		}
 	}
 	
