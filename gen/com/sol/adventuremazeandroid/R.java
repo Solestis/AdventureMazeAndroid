@@ -30,29 +30,30 @@ public final class R {
         public static final int west_wall=0x7f020010;
     }
     public static final class id {
-        public static final int east_wall=0x7f06000a;
         public static final int mazeFrame=0x7f060000;
-        public static final int ne_inner_corner=0x7f06000d;
         public static final int ne_wall_corner=0x7f060005;
-        public static final int north_wall=0x7f060008;
-        public static final int nw_inner_corner=0x7f06000c;
         public static final int nw_wall_corner=0x7f060004;
-        public static final int player=0x7f060010;
-        public static final int playerImage=0x7f060011;
+        public static final int player=0x7f060008;
+        public static final int playerImage=0x7f060009;
         public static final int restartButton=0x7f060002;
-        public static final int se_inner_corner=0x7f06000e;
         public static final int se_wall_corner=0x7f060006;
-        public static final int south_wall=0x7f060009;
-        public static final int sw_inner_corner=0x7f06000f;
         public static final int sw_wall_corner=0x7f060007;
         public static final int tileGrid=0x7f060001;
         public static final int tile_layout=0x7f060003;
-        public static final int west_wall=0x7f06000b;
     }
     public static final class layout {
         public static final int activity_game=0x7f030000;
-        public static final int item_tile_plain=0x7f030001;
-        public static final int player_view=0x7f030002;
+        public static final int east_wall=0x7f030001;
+        public static final int item_tile_empty=0x7f030002;
+        public static final int item_tile_plain=0x7f030003;
+        public static final int ne_inner_corner=0x7f030004;
+        public static final int north_wall=0x7f030005;
+        public static final int nw_inner_corner=0x7f030006;
+        public static final int player_view=0x7f030007;
+        public static final int se_inner_corner=0x7f030008;
+        public static final int south_wall=0x7f030009;
+        public static final int sw_inner_corner=0x7f03000a;
+        public static final int west_wall=0x7f03000b;
     }
     public static final class string {
         public static final int app_name=0x7f040000;

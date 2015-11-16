@@ -20,11 +20,14 @@ public class TileAdapter extends ArrayAdapter<Tile> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Tile tile = getItem(position);
-		if(convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_tile_plain, parent, false);	
+		
+		
+		if(convertView == null && tile.getView() == null) {
+			convertView = LayoutInflater.from(getContext()).inflate(tile.layoutID, parent, false);	
+			tile.setView(convertView);
+		} else {
+			convertView = tile.getView();
 		}
-		convertView.setMinimumHeight(convertView.getWidth());
-		tile.setView(convertView);
 		tile.updateView();
 		
 		return convertView;	

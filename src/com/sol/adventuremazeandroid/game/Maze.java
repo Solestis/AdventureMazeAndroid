@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Maze {
 
 	private MazeGenerator mazeGenerator;	
-	private int width; 					public int getX() {return width;}
-	private int height; 				public int getY() {return height;}
+	private int width; 					public int getWidth() {return width;}
+	private int height; 				public int getHeight() {return height;}
 	private Tile startTile;				public Tile getStartTile() {return startTile;}
 	private Tile[][] tileMatrix;
 	private int numVisibleColumns = 0;	public int getNumVisibleColumns() {return numVisibleColumns;}
@@ -31,6 +31,14 @@ public class Maze {
 			}
 		}
 		startTile = tileMatrix[3][3];
+		startTile.setPlayer(true);
+	}
+	
+	public void updateView(Player player) {
+		setVisibility(player.getLocation(), player.getViewRadius());
+		for(Tile tile : getTilesArray()) {
+			tile.updateView();
+		}
 	}
 	
 	public ArrayList<Tile> getVisibleList(Player player) {
@@ -55,16 +63,31 @@ public class Maze {
 		return visibleList;
 	}
 	
-	public void setVisibility(Tile tile, int visibilityRange) {
-		setVisibility(tile, visibilityRange, false);
+	public void printMazeInts() {
+		mazeGenerator.printMazeInts();
 	}
 	
-	public void setVisibility(Tile tile, int visibilityRange, boolean resetVisibility) {
-		if(resetVisibility) {
-			for(Tile[] tiles : tileMatrix) {
-				for(Tile t : tiles) {
-					t.setInactive();
-				}
+	public ArrayList<Tile> getTilesArray() {
+		ArrayList<Tile> result = new ArrayList<Tile>();
+		
+		for(int i = 0; i < width; i++) {
+			for(Tile[] tileArray : tileMatrix) {
+				result.add(tileArray[i]);
+			}
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public String toString() {
+		return mazeGenerator.toString();
+	}
+	
+	private void setVisibility(Tile tile, int visibilityRange) {
+		for(Tile[] tiles : tileMatrix) {
+			for(Tile t : tiles) {
+				t.setInactive();
 			}
 		}
 		
@@ -92,14 +115,5 @@ public class Maze {
 				}
 			}
 		}
-	}
-	
-	public void printMazeInts() {
-		mazeGenerator.printMazeInts();
-	}
-	
-	@Override
-	public String toString() {
-		return mazeGenerator.toString();
 	}
 }

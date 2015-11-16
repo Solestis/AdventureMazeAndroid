@@ -35,17 +35,23 @@ public class GameActivity extends Activity implements OnItemClickListener {
 		
 		player = new Player("Sol");
 		player.setLocation(maze.getStartTile());
-		
 		showMaze();
 	}
 	
 	public void showMaze() {
-		ArrayList<Tile> visibleTiles = maze.getVisibleList(player);
-		gridContents = new TileAdapter(this, visibleTiles);
-		mazeGrid.setNumColumns(maze.getNumVisibleColumns());
+//		ArrayList<Tile> visibleTiles = maze.getVisibleList(player);
+//		if(gridContents == null) {
+//			gridContents = new TileAdapter(this, visibleTiles);
+//		} else {
+//			gridContents.clear();
+//			gridContents.addAll(visibleTiles);
+//		}
+//		mazeGrid.setNumColumns(maze.getNumVisibleColumns());
+//		mazeGrid.setAdapter(gridContents);
+		gridContents = new TileAdapter(this, maze.getTilesArray());
+		mazeGrid.setNumColumns(maze.getWidth());
 		mazeGrid.setAdapter(gridContents);
-		player.getLocation().setActive();
-		maze.setVisibility(player.getLocation(), player.getViewRadius(), true);
+		maze.updateView(player);
 	}
 	
 	public void restartGame(View view) {
@@ -56,9 +62,9 @@ public class GameActivity extends Activity implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Tile clickedTile = gridContents.getItem(position);
 		if(clickedTile.isActive()) {
-			//System.out.println(clickedTile + " is active, moving player.");
 			player.move(clickedTile);
-			showMaze();
+			//showMaze();
+			maze.updateView(player);
 			clickedTile.onClick();
 		}
 	}

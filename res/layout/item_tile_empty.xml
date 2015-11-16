@@ -33,4 +33,12 @@
         android:layout_height="match_parent"
         android:background="@drawable/sw_wall_corner" />
 
+    <View
+        android:id="@+id/player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="@drawable/player_up_stationary"
+        android:visibility="invisible" />
+
 </com.sol.adventuremazeandroid.view.TileLayout>
