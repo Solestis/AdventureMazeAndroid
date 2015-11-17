@@ -2,7 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fog_fullscreen"
     android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.02"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="navBack"
+            android:text="Back" />
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/mazeFrame"
@@ -14,7 +30,6 @@
             android:id="@+id/tileGrid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/fog_fullscreen"
             android:horizontalSpacing="0dp"
             android:numColumns="3"
             android:stretchMode="columnWidth"

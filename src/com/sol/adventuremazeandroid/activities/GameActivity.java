@@ -7,8 +7,10 @@ import com.sol.adventuremazeandroid.game.Player;
 import com.sol.adventuremazeandroid.game.Tile;
 import com.sol.adventuremazeandroid.view.TileAdapter;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.GridView;
 
 public class GameActivity extends Activity implements OnTileEventListener {
@@ -22,6 +24,7 @@ public class GameActivity extends Activity implements OnTileEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_game);
 		mazeGrid = (GridView) findViewById(R.id.tileGrid);
 		
@@ -57,6 +60,11 @@ public class GameActivity extends Activity implements OnTileEventListener {
 		maze.updateView(player);
 	}
 	
+	public void navBack(View view) {
+		Intent intent = new Intent(this, MenuActivity.class);
+		startActivity(intent);
+	}
+	
 	public void restartGame(View view) {
 		startGame();
 	}
@@ -78,6 +86,9 @@ public class GameActivity extends Activity implements OnTileEventListener {
 	@Override
 	public void onExitEvent(Tile sourceTile) {
 		System.out.println("onExitEvent called from " + sourceTile);
+		Intent intent = new Intent(this, ResultActivity.class);
+		intent.putExtra("steps", stepCounter);
+		startActivity(intent);
 	}
 
 	@Override

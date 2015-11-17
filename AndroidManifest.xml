@@ -6,20 +6,36 @@
 
     <uses-sdk
         android:minSdkVersion="21"
-        android:targetSdkVersion="21" />
+        android:targetSdkVersion="23" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/FullscreenTheme" >
         <activity
-            android:name="com.sol.adventuremazeandroid.activities.GameActivity"
+            android:name=".activities.GameActivity"
             android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name=".activities.MenuActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_menu" >
             <intent-filter>
-       			<action android:name="android.intent.action.MAIN" />
-        		<category android:name="android.intent.category.LAUNCHER" />
-    		</intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fullscreen"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name="com.sol.adventuremazeandroid.activities.ResultActivity"
+            android:label="@string/title_activity_result" >
         </activity>
     </application>
 
