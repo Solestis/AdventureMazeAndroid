@@ -1,6 +1,5 @@
 package com.sol.adventuremazeandroid.activities;
 
-import com.sol.adventuremazeandroid.R;
 import com.sol.adventuremazeandroid.util.SystemUiHider;
 
 import android.annotation.TargetApi;

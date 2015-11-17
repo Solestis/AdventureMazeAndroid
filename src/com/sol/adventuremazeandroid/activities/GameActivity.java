@@ -1,5 +1,7 @@
 package com.sol.adventuremazeandroid.activities;
 
+import java.util.ArrayList;
+
 import com.sol.adventuremazeandroid.R;
 import com.sol.adventuremazeandroid.events.OnTileEventListener;
 import com.sol.adventuremazeandroid.game.Maze;
@@ -21,6 +23,8 @@ public class GameActivity extends Activity implements OnTileEventListener {
 	private GridView mazeGrid;
 	private int stepCounter = 0;
 	
+	private boolean showFullMaze = true;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,7 +41,7 @@ public class GameActivity extends Activity implements OnTileEventListener {
 		maze = new Maze(mazeX, mazeY);
 		maze.setOnTileEventListener(this);
 		maze.generate();
-		
+		maze.printMazeInts();
 		player = new Player("Sol");
 		player.setLocation(maze.getStartTile());
 		
@@ -45,18 +49,21 @@ public class GameActivity extends Activity implements OnTileEventListener {
 	}
 	
 	public void showMaze() {
-//		ArrayList<Tile> visibleTiles = maze.getVisibleList(player);
-//		if(gridContents == null) {
-//			gridContents = new TileAdapter(this, visibleTiles);
-//		} else {
-//			gridContents.clear();
-//			gridContents.addAll(visibleTiles);
-//		}
-//		mazeGrid.setNumColumns(maze.getNumVisibleColumns());
-//		mazeGrid.setAdapter(gridContents);
-		gridContents = new TileAdapter(this, maze.getTilesArray());
-		mazeGrid.setNumColumns(maze.getWidth());
-		mazeGrid.setAdapter(gridContents);
+		if(!showFullMaze) {
+			ArrayList<Tile> visibleTiles = maze.getVisibleList(player);
+			if(gridContents == null) {
+				gridContents = new TileAdapter(this, visibleTiles);
+			} else {
+				gridContents.clear();
+				gridContents.addAll(visibleTiles);
+			}
+			mazeGrid.setNumColumns(maze.getNumVisibleColumns());
+			mazeGrid.setAdapter(gridContents);
+		} else {
+			gridContents = new TileAdapter(this, maze.getTilesArray());
+			mazeGrid.setNumColumns(maze.getWidth());
+			mazeGrid.setAdapter(gridContents);
+		}
 		maze.updateView(player);
 	}
 	
@@ -78,7 +85,9 @@ public class GameActivity extends Activity implements OnTileEventListener {
 		if(sourceTile.isActive()) {
 			player.move(sourceTile);
 			stepCounter++;
-			//showMaze();
+			if(!showFullMaze) {
+				showMaze();
+			}
 			maze.updateView(player);
 		}
 	}

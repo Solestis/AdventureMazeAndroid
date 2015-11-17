@@ -1,13 +1,10 @@
 package com.sol.adventuremazeandroid.activities;
 
 import com.sol.adventuremazeandroid.R;
-import com.sol.adventuremazeandroid.R.layout;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
