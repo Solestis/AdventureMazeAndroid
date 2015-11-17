@@ -1,10 +1,7 @@
 package com.sol.adventuremazeandroid.view;
 
 import java.util.List;
-
-import com.sol.adventuremazeandroid.R;
 import com.sol.adventuremazeandroid.game.Tile;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

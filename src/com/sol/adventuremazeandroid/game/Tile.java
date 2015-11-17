@@ -1,29 +1,29 @@
 package com.sol.adventuremazeandroid.game;
 
 import com.sol.adventuremazeandroid.R;
+import com.sol.adventuremazeandroid.events.OnTileEventListener;
 import com.sol.adventuremazeandroid.view.TileLayout;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewManager;
+import android.view.View.OnClickListener;
 
-public class Tile {
+public class Tile implements OnClickListener {
 	
 	public final int layoutID = R.layout.item_tile_plain;
 	
 	private int configuration;	public int getConfiguration() {return configuration;}
 	private boolean[] walls;	public boolean[] getWalls(){return walls;}
 	private boolean[] corners;	public boolean[] getCorners(){return corners;}
-	private int x;				public int getX() {return x;}
-	private int y;				public int getY() {return y;}
+	protected int x;			public int getX() {return x;}
+	protected int y;			public int getY() {return y;}
 	private View view;			public View getView() {return view;}
 	private boolean player;		public void setPlayer(boolean _playerHere) {player = _playerHere;}		public boolean hasPlayer() {return player;}
 	private boolean active;		public boolean isActive() {return active;}								public void setActive() {active = true;}		public void setInactive() {active = false;}
-	
-	private Context viewContext;
-	private TileLayout tileLayout;
+	protected OnTileEventListener onTileEventListener;			public void setTileEventListener(OnTileEventListener listener) {onTileEventListener = listener;}
+	protected Context viewContext;
+	protected TileLayout tileLayout;
 	private View playerView;
 	
 	public Tile() {
@@ -66,6 +66,8 @@ public class Tile {
 		if(corners[3]) LayoutInflater.from(viewContext).inflate(R.layout.sw_inner_corner, tileLayout, true);
 		
 		if(player) setPlayerHere();
+		
+		view.setOnClickListener(this);
 	}
 	
 	public void updateView() {
@@ -94,12 +96,14 @@ public class Tile {
 		}
 	}
 	
-	public void onClick(){
-		//Can be overridden in subclasses.
+	@Override
+	public void onClick(View view) {
+		onTileEventListener.onTileEvent(this);
 	}
 	
 	@Override
 	public String toString() {
 		return "Tile at: " + x + "," + y;
 	}
+
 }

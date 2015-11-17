@@ -1,29 +1,29 @@
-package com.sol.adventuremazeandroid.game;
-
-import java.util.ArrayList;
+package com.sol.adventuremazeandroid.activities;
 
 import com.sol.adventuremazeandroid.R;
+import com.sol.adventuremazeandroid.events.OnTileEventListener;
+import com.sol.adventuremazeandroid.game.Maze;
+import com.sol.adventuremazeandroid.game.Player;
+import com.sol.adventuremazeandroid.game.Tile;
 import com.sol.adventuremazeandroid.view.TileAdapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-public class GameActivity extends Activity implements OnItemClickListener {
+public class GameActivity extends Activity implements OnTileEventListener {
 
 	private Maze maze;
 	private Player player;
 	private TileAdapter gridContents;
 	private GridView mazeGrid;
+	private int stepCounter = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 		mazeGrid = (GridView) findViewById(R.id.tileGrid);
-		mazeGrid.setOnItemClickListener(this);
 		
 		startGame();
 	}
@@ -32,9 +32,12 @@ public class GameActivity extends Activity implements OnItemClickListener {
 		int mazeX = 7;
 		int mazeY = 7;
 		maze = new Maze(mazeX, mazeY);
+		maze.setOnTileEventListener(this);
+		maze.generate();
 		
 		player = new Player("Sol");
 		player.setLocation(maze.getStartTile());
+		
 		showMaze();
 	}
 	
@@ -57,15 +60,28 @@ public class GameActivity extends Activity implements OnItemClickListener {
 	public void restartGame(View view) {
 		startGame();
 	}
-
+	
+	public void showAllTiles(View view) {
+		maze.setAllTilesVisible();
+	}
+	
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Tile clickedTile = gridContents.getItem(position);
-		if(clickedTile.isActive()) {
-			player.move(clickedTile);
+	public void onTileEvent(Tile sourceTile) {
+		if(sourceTile.isActive()) {
+			player.move(sourceTile);
+			stepCounter++;
 			//showMaze();
 			maze.updateView(player);
-			clickedTile.onClick();
 		}
+	}
+
+	@Override
+	public void onExitEvent(Tile sourceTile) {
+		System.out.println("onExitEvent called from " + sourceTile);
+	}
+
+	@Override
+	public void onItemPickupEvent(Tile sourceTile) {
+		System.out.println("onItemPickupEvent called from " + sourceTile);
 	}
 }

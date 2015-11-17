@@ -1,6 +1,7 @@
 package com.sol.adventuremazeandroid.game;
 
 import java.util.ArrayList;
+import com.sol.adventuremazeandroid.events.OnTileEventListener;
 
 public class Maze {
 
@@ -8,16 +9,17 @@ public class Maze {
 	private int width; 					public int getWidth() {return width;}
 	private int height; 				public int getHeight() {return height;}
 	private Tile startTile;				public Tile getStartTile() {return startTile;}
+	private Tile endTile;				public Tile getEndTile() {return endTile;}
 	private Tile[][] tileMatrix;
 	private int numVisibleColumns = 0;	public int getNumVisibleColumns() {return numVisibleColumns;}
+	private OnTileEventListener onTileEventListener;		public void setOnTileEventListener(OnTileEventListener listener) {onTileEventListener = listener;}
 
 	public Maze(int _width, int _height) {
 		width = _width;
 		height = _height;
-		generateMaze();	
 	}
 	
-	private void generateMaze() {
+	public void generate() {
 		tileMatrix = new Tile[width][height];
 		mazeGenerator = new MazeGenerator(width,height);
 		int[][] mazeIntArray = mazeGenerator.getMaze();
@@ -27,15 +29,15 @@ public class Maze {
 			for(int aY = 0; aY < height; aY++) {
 				int tileInt = intArray[aY];
 				Tile tile = new Tile(tileInt, aX, aY);
+				tile.setTileEventListener(onTileEventListener);
 				tileMatrix[aX][aY] = tile;
 			}
 		}
-		startTile = tileMatrix[3][3];
-		startTile.setPlayer(true);
+		setStartEndTile();
 	}
 	
 	public void updateView(Player player) {
-		setVisibility(player.getLocation(), player.getViewRadius());
+		setVisibility(player.getLocation(), player.getViewRadius(), true);
 		for(Tile tile : getTilesArray()) {
 			tile.updateView();
 		}
@@ -63,6 +65,15 @@ public class Maze {
 		return visibleList;
 	}
 	
+	public void setAllTilesVisible() {
+		for(Tile[] tiles : tileMatrix) {
+			for(Tile t : tiles) {
+				t.setActive();
+				t.updateView();
+			}
+		}
+	}
+	
 	public void printMazeInts() {
 		mazeGenerator.printMazeInts();
 	}
@@ -84,10 +95,31 @@ public class Maze {
 		return mazeGenerator.toString();
 	}
 	
-	private void setVisibility(Tile tile, int visibilityRange) {
-		for(Tile[] tiles : tileMatrix) {
-			for(Tile t : tiles) {
-				t.setInactive();
+	private void setStartEndTile() {
+		double quarterWidth = width/4-1;
+		double quarterHeight = height/4-1;
+		
+		int randomX = (int)(Math.random()*quarterWidth);
+		int randomY = (int)(Math.random()*quarterHeight);
+		
+		startTile = tileMatrix[randomX][randomY];
+		startTile.setPlayer(true);
+		
+		int endTileX = width-randomX-1;
+		int endTileY = height-randomY-1;
+		int endTileConfig = tileMatrix[endTileX][endTileY].getConfiguration();
+		endTile = new ExitTile(endTileConfig, endTileX, endTileY);
+		endTile.setTileEventListener(onTileEventListener);
+		tileMatrix[endTileX][endTileY] = endTile;
+		
+	}
+	
+	private void setVisibility(Tile tile, int visibilityRange, boolean resetVisibility) {
+		if(resetVisibility) {
+			for(Tile[] tiles : tileMatrix) {
+				for(Tile t : tiles) {
+					t.setInactive();
+				}
 			}
 		}
 		
@@ -111,7 +143,7 @@ public class Maze {
 				}
 				nextTile.setActive();
 				if(nextTile != null && range > 0) {
-					setVisibility(nextTile, range);
+					setVisibility(nextTile, range, false);
 				}
 			}
 		}
