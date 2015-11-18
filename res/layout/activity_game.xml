@@ -7,7 +7,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:visibility="gone" >
 
         <Button
             android:id="@+id/backButton"
@@ -53,13 +54,22 @@
             android:text="Show all Tiles" />
 
         <Button
+            android:id="@+id/toggleGridButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="toggleFullMazeGrid"
+            android:text="Toggle Grid" />
+
+        <Button
             android:id="@+id/restartButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".1"
             android:gravity="center_vertical|center_horizontal"
             android:onClick="restartGame"
-            android:text="Restart" />
+            android:text="Restart Level" />
 
     </LinearLayout>
 

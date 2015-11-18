@@ -96,11 +96,11 @@ public class Maze {
 	}
 	
 	private void setStartEndTile() {
-		double quarterWidth = width/4-1;
-		double quarterHeight = height/4-1;
+		double halfWidth = width/2-1;
+		double halfHeight = height/2-1;
 		
-		int randomX = (int)(Math.random()*quarterWidth);
-		int randomY = (int)(Math.random()*quarterHeight);
+		int randomX = (int)(Math.random()*halfWidth);
+		int randomY = (int)(Math.random()*halfHeight);
 		
 		startTile = tileMatrix[randomX][randomY];
 		startTile.setPlayer(true);

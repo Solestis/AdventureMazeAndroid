@@ -21,9 +21,10 @@ public class GameActivity extends Activity implements OnTileEventListener {
 	private Player player;
 	private TileAdapter gridContents;
 	private GridView mazeGrid;
-	private int stepCounter = 0;
+	private int levelNumber = 1;
+	//private int stepCounter = 0;
 	
-	private boolean showFullMaze = true;
+	private boolean fullMazeGrid = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,25 +32,24 @@ public class GameActivity extends Activity implements OnTileEventListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_game);
 		mazeGrid = (GridView) findViewById(R.id.tileGrid);
+		player = new Player("Sol");
 		
-		startGame();
+		startGame(levelNumber);
 	}
 	
-	public void startGame() {
-		int mazeX = 7;
-		int mazeY = 7;
+	public void startGame(int levelNumber) {
+		int mazeX = 3 + levelNumber;
+		int mazeY = 3 + levelNumber;
 		maze = new Maze(mazeX, mazeY);
 		maze.setOnTileEventListener(this);
 		maze.generate();
-		maze.printMazeInts();
-		player = new Player("Sol");
 		player.setLocation(maze.getStartTile());
 		
 		showMaze();
 	}
 	
 	public void showMaze() {
-		if(!showFullMaze) {
+		if(!fullMazeGrid) {
 			ArrayList<Tile> visibleTiles = maze.getVisibleList(player);
 			if(gridContents == null) {
 				gridContents = new TileAdapter(this, visibleTiles);
@@ -65,6 +65,10 @@ public class GameActivity extends Activity implements OnTileEventListener {
 			mazeGrid.setAdapter(gridContents);
 		}
 		maze.updateView(player);
+//		gridContents.notifyDataSetChanged();
+//		mazeGrid.invalidateViews();
+		//mazeGrid.postInvalidate();
+		//mazeGrid.requestLayout();
 	}
 	
 	public void navBack(View view) {
@@ -73,19 +77,24 @@ public class GameActivity extends Activity implements OnTileEventListener {
 	}
 	
 	public void restartGame(View view) {
-		startGame();
+		startGame(levelNumber);
 	}
 	
 	public void showAllTiles(View view) {
 		maze.setAllTilesVisible();
 	}
 	
+	public void toggleFullMazeGrid(View view) {
+		fullMazeGrid = (fullMazeGrid) ? false : true;
+		showMaze();
+	}
+	
 	@Override
 	public void onTileEvent(Tile sourceTile) {
 		if(sourceTile.isActive()) {
 			player.move(sourceTile);
-			stepCounter++;
-			if(!showFullMaze) {
+			//stepCounter++;
+			if(!fullMazeGrid) {
 				showMaze();
 			}
 			maze.updateView(player);
@@ -95,9 +104,8 @@ public class GameActivity extends Activity implements OnTileEventListener {
 	@Override
 	public void onExitEvent(Tile sourceTile) {
 		System.out.println("onExitEvent called from " + sourceTile);
-		Intent intent = new Intent(this, ResultActivity.class);
-		intent.putExtra("steps", stepCounter);
-		startActivity(intent);
+		levelNumber++;
+		startGame(levelNumber);
 	}
 
 	@Override
