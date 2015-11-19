@@ -27,7 +27,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int east_wall=0x7f020001;
         public static final int floor_1=0x7f020002;
         public static final int fog_fullscreen=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
+        public static final int logo=0x7f020004;
         public static final int ne_inner_corner=0x7f020005;
         public static final int ne_wall_corner=0x7f020006;
         public static final int north_wall=0x7f020007;
@@ -48,9 +48,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class id {
         public static final int backButton=0x7f070003;
         public static final int backButtonResult=0x7f07000e;
+        public static final int east_wall=0x7f070019;
         public static final int levelNumberText=0x7f070008;
         public static final int mazeFrame=0x7f070004;
+        public static final int ne_inner_corner=0x7f07001c;
         public static final int ne_wall_corner=0x7f070013;
+        public static final int north_wall=0x7f070017;
+        public static final int nw_inner_corner=0x7f07001b;
         public static final int nw_wall_corner=0x7f070012;
         public static final int player=0x7f070016;
         public static final int playerAvatar=0x7f070006;
@@ -60,15 +64,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int playerToolbarScrollView=0x7f070009;
         public static final int restartButton=0x7f070002;
         public static final int restartGameButtonResult=0x7f07000f;
+        public static final int se_inner_corner=0x7f07001d;
         public static final int se_wall_corner=0x7f070014;
         public static final int showAllButton=0x7f070000;
+        public static final int south_wall=0x7f070018;
         public static final int startButton=0x7f07000b;
         public static final int stepTextView=0x7f07000d;
+        public static final int sw_inner_corner=0x7f07001e;
         public static final int sw_wall_corner=0x7f070015;
         public static final int tileGrid=0x7f070005;
         public static final int tile_layout=0x7f070011;
         public static final int titleTextView=0x7f07000c;
         public static final int toggleGridButton=0x7f070001;
+        public static final int west_wall=0x7f07001a;
     }
     public static final class layout {
         public static final int activity_game=0x7f030000;
@@ -79,14 +87,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int exit=0x7f030005;
         public static final int item_tile_empty=0x7f030006;
         public static final int item_tile_plain=0x7f030007;
-        public static final int ne_inner_corner=0x7f030008;
-        public static final int north_wall=0x7f030009;
-        public static final int nw_inner_corner=0x7f03000a;
-        public static final int player_view=0x7f03000b;
-        public static final int se_inner_corner=0x7f03000c;
-        public static final int south_wall=0x7f03000d;
-        public static final int sw_inner_corner=0x7f03000e;
-        public static final int west_wall=0x7f03000f;
+        public static final int logo=0x7f030008;
+        public static final int ne_inner_corner=0x7f030009;
+        public static final int north_wall=0x7f03000a;
+        public static final int nw_inner_corner=0x7f03000b;
+        public static final int player_view=0x7f03000c;
+        public static final int se_inner_corner=0x7f03000d;
+        public static final int south_wall=0x7f03000e;
+        public static final int sw_inner_corner=0x7f03000f;
+        public static final int west_wall=0x7f030010;
     }
     public static final class string {
         public static final int app_name=0x7f050000;
