@@ -19,7 +19,7 @@ public class Maze {
 		height = _height;
 	}
 	
-	public void generate() {
+	public void generate(Player player) {
 		tileMatrix = new Tile[width][height];
 		mazeGenerator = new MazeGenerator(width,height);
 		int[][] mazeIntArray = mazeGenerator.getMaze();
@@ -34,6 +34,12 @@ public class Maze {
 			}
 		}
 		setStartEndTile();
+		
+		//Testing ToolTile
+		ToolTile candleTile = new ToolTile(tileMatrix[1][1].getConfiguration(), 1,1);
+		candleTile.placeTool(Tool.createTool(Tool.Type.Candlestick));
+		candleTile.setTileEventListener(onTileEventListener);
+		tileMatrix[1][1] = candleTile;
 	}
 	
 	public void updateView(Player player) {
@@ -111,16 +117,16 @@ public class Maze {
 		endTile = new ExitTile(endTileConfig, endTileX, endTileY);
 		endTile.setTileEventListener(onTileEventListener);
 		tileMatrix[endTileX][endTileY] = endTile;
-		
 	}
 	
-	private void setVisibility(Tile tile, int visibilityRange, boolean resetVisibility) {
-		if(resetVisibility) {
+	private void setVisibility(Tile tile, int visibilityRange, boolean isPlayerTile) {
+		if(isPlayerTile) {
 			for(Tile[] tiles : tileMatrix) {
 				for(Tile t : tiles) {
 					t.setInactive();
 				}
 			}
+			tile.setActive();
 		}
 		
 		boolean[] walls = tile.getWalls();

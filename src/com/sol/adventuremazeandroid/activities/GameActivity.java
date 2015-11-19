@@ -4,9 +4,13 @@ import java.util.ArrayList;
 
 import com.sol.adventuremazeandroid.R;
 import com.sol.adventuremazeandroid.events.OnTileEventListener;
+import com.sol.adventuremazeandroid.game.Candlestick;
+import com.sol.adventuremazeandroid.game.ExitTile;
 import com.sol.adventuremazeandroid.game.Maze;
 import com.sol.adventuremazeandroid.game.Player;
 import com.sol.adventuremazeandroid.game.Tile;
+import com.sol.adventuremazeandroid.game.Tool;
+import com.sol.adventuremazeandroid.game.ToolTile;
 import com.sol.adventuremazeandroid.view.TileAdapter;
 import android.app.Activity;
 import android.content.Intent;
@@ -22,7 +26,6 @@ public class GameActivity extends Activity implements OnTileEventListener {
 	private TileAdapter gridContents;
 	private GridView mazeGrid;
 	private int levelNumber = 1;
-	//private int stepCounter = 0;
 	
 	private boolean fullMazeGrid = false;
 	
@@ -42,7 +45,7 @@ public class GameActivity extends Activity implements OnTileEventListener {
 		int mazeY = 3 + levelNumber;
 		maze = new Maze(mazeX, mazeY);
 		maze.setOnTileEventListener(this);
-		maze.generate();
+		maze.generate(player);
 		player.setLocation(maze.getStartTile());
 		
 		showMaze();
@@ -67,8 +70,8 @@ public class GameActivity extends Activity implements OnTileEventListener {
 		maze.updateView(player);
 //		gridContents.notifyDataSetChanged();
 //		mazeGrid.invalidateViews();
-		//mazeGrid.postInvalidate();
-		//mazeGrid.requestLayout();
+//		mazeGrid.postInvalidate();
+//		mazeGrid.requestLayout();
 	}
 	
 	public void navBack(View view) {
@@ -93,7 +96,6 @@ public class GameActivity extends Activity implements OnTileEventListener {
 	public void onTileEvent(Tile sourceTile) {
 		if(sourceTile.isActive()) {
 			player.move(sourceTile);
-			//stepCounter++;
 			if(!fullMazeGrid) {
 				showMaze();
 			}
@@ -102,14 +104,13 @@ public class GameActivity extends Activity implements OnTileEventListener {
 	}
 
 	@Override
-	public void onExitEvent(Tile sourceTile) {
-		System.out.println("onExitEvent called from " + sourceTile);
+	public void onExitEvent(ExitTile sourceTile) {
 		levelNumber++;
 		startGame(levelNumber);
 	}
 
 	@Override
-	public void onItemPickupEvent(Tile sourceTile) {
-		System.out.println("onItemPickupEvent called from " + sourceTile);
+	public void onToolPickupEvent(ToolTile sourceTile) {
+		player.addTool(sourceTile.pickupTool());
 	}
 }
