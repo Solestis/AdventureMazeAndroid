@@ -15,9 +15,11 @@ import com.sol.adventuremazeandroid.view.TileAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 public class GameActivity extends Activity implements OnTileEventListener {
 
@@ -25,6 +27,7 @@ public class GameActivity extends Activity implements OnTileEventListener {
 	private Player player;
 	private TileAdapter gridContents;
 	private GridView mazeGrid;
+	private LinearLayout toolBar;
 	private int levelNumber = 1;
 	
 	private boolean fullMazeGrid = false;
@@ -35,6 +38,7 @@ public class GameActivity extends Activity implements OnTileEventListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_game);
 		mazeGrid = (GridView) findViewById(R.id.tileGrid);
+		toolBar = (LinearLayout) findViewById(R.id.playerToolBar);
 		player = new Player("Sol");
 		
 		startGame(levelNumber);
@@ -111,6 +115,11 @@ public class GameActivity extends Activity implements OnTileEventListener {
 
 	@Override
 	public void onToolPickupEvent(ToolTile sourceTile) {
-		player.addTool(sourceTile.pickupTool());
+		Tool addedTool = player.addTool(sourceTile.pickupTool());
+		if(addedTool != null) {
+			System.out.println("Adding tool to toolbar!");
+			View toolView = LayoutInflater.from(toolBar.getContext()).inflate(addedTool.getViewLayout(), toolBar, false);
+			toolBar.addView(toolView);
+		}
 	}
 }

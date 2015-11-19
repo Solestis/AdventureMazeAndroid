@@ -2,10 +2,12 @@ package com.sol.adventuremazeandroid.game;
 
 import java.lang.reflect.Constructor;
 
+import android.view.View;
+
 public abstract class Tool {
 		
 	public static enum Type {
-		Candlestick
+		Candlestick;
 	}
 	
 	public static Tool createTool(Type type) {
@@ -24,6 +26,7 @@ public abstract class Tool {
 	
 	protected Player player;		public void setPlayer(Player _player) {player = _player;}
 	protected Type type;			public Type getType() {return type;}
+	protected int viewLayout;		public int getViewLayout() {return viewLayout;}
 	protected int uses = 0;
 	protected boolean stackable;	public boolean isStackable() {return stackable;}
 	

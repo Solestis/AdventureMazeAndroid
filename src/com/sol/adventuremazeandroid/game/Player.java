@@ -22,18 +22,20 @@ public class Player {
 		if(tile != location) {
 			location.removePlayer();
 			location = tile;
-		}
-		location.setPlayerHere();
+			location.setPlayerHere();
+		}	
 	}
 	
-	public void addTool(Tool newTool) {
+	public Tool addTool(Tool newTool) {
 		if(!tools.containsKey(newTool.type)) {
 			newTool.setPlayer(this);
 			newTool.applyPassiveEffect();
 			tools.put(newTool.getType(), newTool);
+			return newTool;
 		} else if(newTool.isStackable()) {
 			newTool.addUse();
 		}
+		return null;
 	}
 	
 	public void removeTool(Tool newTool) {
