@@ -7,6 +7,39 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".1" >
+
+        <Button
+            android:id="@+id/showAllButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="showAllTiles"
+            android:text="Show all Tiles" />
+
+        <Button
+            android:id="@+id/toggleGridButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="toggleFullMazeGrid"
+            android:text="Toggle Grid" />
+
+        <Button
+            android:id="@+id/restartButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:gravity="center_vertical|center_horizontal"
+            android:onClick="restartGame"
+            android:text="Restart Level" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone" >
 
@@ -40,50 +73,70 @@
 
     </FrameLayout>
 
-    <HorizontalScrollView
-        android:id="@+id/playerToolbarScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" >
-
-        <LinearLayout
-            android:id="@+id/playerToolBar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" >
-
-        </LinearLayout>
-    </HorizontalScrollView>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="0dp"
+        android:layout_weight=".2" >
 
-        <Button
-            android:id="@+id/showAllButton"
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/toolbar" >
+
+            <com.sol.adventuremazeandroid.view.SquareHeightView
+                android:id="@+id/playerAvatar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@drawable/player_avatar" />
+
+            <TextView
+                android:id="@+id/playerNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_marginTop="5dp"
+                android:maxLines="1"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="10"
+                android:text="@string/player_name"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/levelNumberText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginTop="5dp"
+                android:maxLines="1"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="10"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/playerToolbarScrollView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".1"
-            android:gravity="center_vertical|center_horizontal"
-            android:onClick="showAllTiles"
-            android:text="Show all Tiles" />
+            android:layout_weight="1"
+            android:background="@drawable/toolbar" >
 
-        <Button
-            android:id="@+id/toggleGridButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".1"
-            android:gravity="center_vertical|center_horizontal"
-            android:onClick="toggleFullMazeGrid"
-            android:text="Toggle Grid" />
-
-        <Button
-            android:id="@+id/restartButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".1"
-            android:gravity="center_vertical|center_horizontal"
-            android:onClick="restartGame"
-            android:text="Restart Level" />
+            <LinearLayout
+                android:id="@+id/playerToolBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
 
     </LinearLayout>
 

@@ -1,7 +1,11 @@
 package com.sol.adventuremazeandroid.game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.sol.adventuremazeandroid.events.OnTileEventListener;
+
+import android.graphics.Point;
 
 public class Maze {
 
@@ -19,7 +23,7 @@ public class Maze {
 		height = _height;
 	}
 	
-	public void generate(Player player) {
+	public void generate(HashMap<Tool.Type, Tool> playerTools) {
 		tileMatrix = new Tile[width][height];
 		mazeGenerator = new MazeGenerator(width,height);
 		int[][] mazeIntArray = mazeGenerator.getMaze();
@@ -33,13 +37,8 @@ public class Maze {
 				tileMatrix[aX][aY] = tile;
 			}
 		}
-		setStartEndTile();
-		
-		//Testing ToolTile
-		ToolTile candleTile = new ToolTile(tileMatrix[1][1].getConfiguration(), 1,1);
-		candleTile.placeTool(Tool.createTool(Tool.Type.Candlestick));
-		candleTile.setTileEventListener(onTileEventListener);
-		tileMatrix[1][1] = candleTile;
+		placeStartEndTiles();
+		placeToolTiles(playerTools);
 	}
 	
 	public void updateView(Player player) {
@@ -101,7 +100,7 @@ public class Maze {
 		return mazeGenerator.toString();
 	}
 	
-	private void setStartEndTile() {
+	private void placeStartEndTiles() {
 		double halfWidth = width/2-1;
 		double halfHeight = height/2-1;
 		
@@ -117,6 +116,18 @@ public class Maze {
 		endTile = new ExitTile(endTileConfig, endTileX, endTileY);
 		endTile.setTileEventListener(onTileEventListener);
 		tileMatrix[endTileX][endTileY] = endTile;
+	}
+	
+	private void placeToolTiles(HashMap<Tool.Type, Tool> playerTools) {
+		for(Tool.Type toolType : Tool.Type.values()) {
+			if(!playerTools.containsKey(toolType)) {
+				Point rc = getRandomCoordinates();
+				ToolTile toolTile = new ToolTile(tileMatrix[rc.x][rc.y].getConfiguration(), rc.x, rc.y);
+				toolTile.placeTool(Tool.createTool(toolType));
+				toolTile.setTileEventListener(onTileEventListener);
+				tileMatrix[rc.x][rc.y] = toolTile;
+			}
+		}
 	}
 	
 	private void setVisibility(Tile tile, int visibilityRange, boolean isPlayerTile) {
@@ -153,5 +164,14 @@ public class Maze {
 				}
 			}
 		}
+	}
+	
+	private Point getRandomCoordinates() {
+		Point resultPoint = new Point(0,0);
+		
+		resultPoint.x = (int)(Math.random()*width);
+		resultPoint.y = (int)(Math.random()*height);
+		
+		return resultPoint;
 	}
 }

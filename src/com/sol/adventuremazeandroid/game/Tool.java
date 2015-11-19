@@ -2,8 +2,6 @@ package com.sol.adventuremazeandroid.game;
 
 import java.lang.reflect.Constructor;
 
-import android.view.View;
-
 public abstract class Tool {
 		
 	public static enum Type {

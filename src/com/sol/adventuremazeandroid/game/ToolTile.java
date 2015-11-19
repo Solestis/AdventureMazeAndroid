@@ -1,7 +1,5 @@
 package com.sol.adventuremazeandroid.game;
 
-import com.sol.adventuremazeandroid.R;
-
 import android.view.LayoutInflater;
 import android.view.View;
 

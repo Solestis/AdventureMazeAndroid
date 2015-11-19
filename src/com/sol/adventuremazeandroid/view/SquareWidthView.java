@@ -4,20 +4,20 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class SquareView extends View
+public class SquareWidthView extends View
 {
 
-    public SquareView(final Context context)
+    public SquareWidthView(final Context context)
     {
         super(context);
     }
 
-    public SquareView(final Context context, final AttributeSet attrs)
+    public SquareWidthView(final Context context, final AttributeSet attrs)
     {
         super(context, attrs);
     }
 
-    public SquareView(final Context context, final AttributeSet attrs, final int defStyle)
+    public SquareWidthView(final Context context, final AttributeSet attrs, final int defStyle)
     {
         super(context, attrs, defStyle);
     }

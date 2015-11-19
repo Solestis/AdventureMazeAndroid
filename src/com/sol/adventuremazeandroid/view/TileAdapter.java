@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 
 public class TileAdapter extends ArrayAdapter<Tile> {
 	
@@ -18,12 +19,12 @@ public class TileAdapter extends ArrayAdapter<Tile> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Tile tile = getItem(position);
 		
-		
 		if(convertView == null && tile.getView() == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(tile.layoutID, parent, false);	
+			convertView = LayoutInflater.from(getContext()).inflate(tile.layoutID, parent, false);
 			tile.setView(convertView);
 		} else {
 			convertView = tile.getView();
+			convertView.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT, GridView.LayoutParams.MATCH_PARENT));
 		}
 		tile.updateView();
 		

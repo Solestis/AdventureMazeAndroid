@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.sol.adventuremazeandroid.R;
 import com.sol.adventuremazeandroid.events.OnTileEventListener;
-import com.sol.adventuremazeandroid.game.Candlestick;
 import com.sol.adventuremazeandroid.game.ExitTile;
 import com.sol.adventuremazeandroid.game.Maze;
 import com.sol.adventuremazeandroid.game.Player;
@@ -12,6 +11,7 @@ import com.sol.adventuremazeandroid.game.Tile;
 import com.sol.adventuremazeandroid.game.Tool;
 import com.sol.adventuremazeandroid.game.ToolTile;
 import com.sol.adventuremazeandroid.view.TileAdapter;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 
 public class GameActivity extends Activity implements OnTileEventListener {
 
@@ -28,6 +30,7 @@ public class GameActivity extends Activity implements OnTileEventListener {
 	private TileAdapter gridContents;
 	private GridView mazeGrid;
 	private LinearLayout toolBar;
+	TextView levelNumberText;
 	private int levelNumber = 1;
 	
 	private boolean fullMazeGrid = false;
@@ -39,17 +42,24 @@ public class GameActivity extends Activity implements OnTileEventListener {
 		setContentView(R.layout.activity_game);
 		mazeGrid = (GridView) findViewById(R.id.tileGrid);
 		toolBar = (LinearLayout) findViewById(R.id.playerToolBar);
+		
 		player = new Player("Sol");
+		TextView playerNameText = (TextView) findViewById(R.id.playerNameText);
+		playerNameText.setText(player.getName());
+		
+		levelNumberText = (TextView) findViewById(R.id.levelNumberText);
 		
 		startGame(levelNumber);
 	}
 	
 	public void startGame(int levelNumber) {
+		levelNumberText.setText("Level " + levelNumber);
+		
 		int mazeX = 3 + levelNumber;
 		int mazeY = 3 + levelNumber;
 		maze = new Maze(mazeX, mazeY);
 		maze.setOnTileEventListener(this);
-		maze.generate(player);
+		maze.generate(player.getTools());
 		player.setLocation(maze.getStartTile());
 		
 		showMaze();
@@ -119,6 +129,9 @@ public class GameActivity extends Activity implements OnTileEventListener {
 		if(addedTool != null) {
 			System.out.println("Adding tool to toolbar!");
 			View toolView = LayoutInflater.from(toolBar.getContext()).inflate(addedTool.getViewLayout(), toolBar, false);
+			LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) toolView.getLayoutParams();
+			layoutParams.height = LayoutParams.MATCH_PARENT;
+			toolView.setLayoutParams(layoutParams);
 			toolBar.addView(toolView);
 		}
 	}
